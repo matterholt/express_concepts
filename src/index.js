@@ -8,6 +8,7 @@ import express from "express";
 /////////////
 /// ---- MOCK DB
 //*************************************************** */
+import { models } from "./data/model_data";
 let users = {
   1: {
     id: "1",
@@ -31,6 +32,7 @@ let messages = {
     userId: "2"
   }
 };
+
 //*************************************************** */
 
 //declared function
@@ -40,6 +42,16 @@ const app = express();
 app.get("/users", (req, res) => {
   return res.send("Received a GET HTTP method");
 });
+//say we want to get all the model details
+app.get("/models", (req, res) => {
+  return res.send(Object.values(models));
+});
+
+// Params property on request
+app.get("/models/:name", (req, res) => {
+  return res.send(models[req.params.name]);
+});
+
 app.post("/users", (req, res) => {
   return res.send("Received a POST HTTP method");
 });
