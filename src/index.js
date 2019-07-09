@@ -1,3 +1,4 @@
+// TUT link https://www.robinwieruch.de/node-express-server-rest-api/
 import "dotenv/config";
 import cors from "cors";
 import express from "express";
@@ -5,10 +6,8 @@ import express from "express";
 //console.log("Hello Node.js project.");
 //console.log(process.env.MY_SECRET);
 
-/////////////
-/// ---- MOCK DB
-//*************************************************** */
-import { models } from "./data/model_data";
+import { models } from "./models/index";
+// MOCK DATA
 let users = {
   1: {
     id: "1",
@@ -32,34 +31,40 @@ let messages = {
     userId: "2"
   }
 };
-
-//*************************************************** */
-
 //declared function
 const app = express();
+// ******************
+app.use;
 
 // CRUD HTTP methods and REST Operations
+// two routes for reading the whole list of users and a single user by ID
 app.get("/users", (req, res) => {
-  return res.send("Received a GET HTTP method");
+  return res.send(Object.values(users));
 });
-//say we want to get all the model details
-app.get("/models", (req, res) => {
-  return res.send(Object.values(models));
+app.get("/users/:userId", (req, res) => {
+  //return res.send(users[req.params.userID]);
+  return res.send(users[req.params.userId]);
+});
+// GET messages object
+app.get("/messages", (req, res) => {
+  return res.send(Object.values(messages));
+});
+// GET messages by ID
+app.get("/messages/:messagesId", (req, res) => {
+  return res.send(messages[req.params.messagesId]);
 });
 
-// Params property on request
-app.get("/models/:name", (req, res) => {
-  return res.send(models[req.params.name]);
-});
-
+// ***************************
 app.post("/users", (req, res) => {
   return res.send("Received a POST HTTP method");
 });
 app.put("/users/:userId", (req, res) => {
-  return res.send(`PUT HTTP method on user/${req.params.userId} resource`);
+  return res.send(`PUT HTTP method on user/${req.params.userId} resource \n`);
 });
 app.delete("/users/:userId", (req, res) => {
-  return res.send(`DELETE HTTP method on user/${req.params.userId} resource`);
+  return res.send(
+    `DELETE HTTP method on user/${req.params.userId} resource \n`
+  );
 });
 
 /*
