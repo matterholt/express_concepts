@@ -44,6 +44,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // *********CUSTOM MIDDLEWARE *********
 app.use((req, res, next) => {
   // do something this is how to start the custom middleware
+  req.me = users[1];
   next();
 });
 
@@ -64,6 +65,9 @@ app.get("/messages", (req, res) => {
 app.get("/messages/:messagesId", (req, res) => {
   return res.send(messages[req.params.messagesId]);
 });
+app.get("/session", (req, res) => {
+  return res.send(users[req.me.id]);
+});
 
 // ***************************
 app.post("/users", (req, res) => {
@@ -74,17 +78,21 @@ app.post("/messages", (req, res) => {
   const id = uuidv4();
   const message = {
     id,
-    text: req.body.text
+    text: req.body.text,
+    userId: req.me.id
   };
   messages[id] = message;
   return res.send(message);
 });
 
 // ***************************
+app.delete("/messages/:messagesId", (req, res) => {
+  const { [req.params.messagesId]: message, ...otherMessages } = messages;
+  messages = otherMessages;
 
-app.put("/users/:userId", (req, res) => {
-  return res.send(`PUT HTTP method on user/${req.params.userId} resource \n`);
+  return res.send(messages);
 });
+
 app.delete("/users/:userId", (req, res) => {
   return res.send(
     `DELETE HTTP method on user/${req.params.userId} resource \n`
