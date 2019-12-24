@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= title
+  p hello from #{title}
+  p area to work with fea request data
+
+  
+  table
+    th project code
+    th project part 
+    each project in data
+      tr
+        td= project.code
+        td= project.part
