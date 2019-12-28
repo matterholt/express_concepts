@@ -8,17 +8,65 @@ const getProjects = (req, res) => {
       return next(err);
     }
     const projectlist = results.rows;
-    res.render("project", { title: "projects", data: projectlist });
+    res.render("project", {
+      title: "projects",
+      data: projectlist
+    });
   });
 };
-
-const createNewProject = (req, res) => {
+const NewProjectPage = (req, res) => {
   res.render("newProject");
+};
+const createNewProject = (req, res) => {
+  const { partCode, partDev } = req.body;
+  db.query(
+    "INSERT INTO projects(code, part) VALUES($1, $2)",
+    [partCode, partDev],
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      res.status(201).send(`User added with ID: ${result.insertId}`);
+    }
+  );
+  res.redirect("/projects");
+};
+
+const updateDetailsProject = (req, res) => {
+  // fetch group members
+  const id = parseInt(req.params.id);
+  db.query(
+    "SELECT * from projects WHERE project_id=$1",
+    [id],
+    (err, results) => {
+      if (err) {
+        throw err;
+      }
+      //res.status(200).json(results.rows);
+      res.render("update_project", {
+        title: "Project detail",
+        data: results.rows[0]
+      });
+    }
+  );
 };
 
 // create new project by creating a post,
+const deleteProject = (req, res) => {
+  const id = parseInt(req.params.id);
 
+  db.query("DELETE FROM projects WHERE project_id=$1", [id], (err, results) => {
+    if (err) {
+      throw err;
+    }
+    //res.status(200).send(`project ${id} has been removed`);
+    res.redirect("/projects");
+  });
+};
 module.exports = {
   getProjects,
-  createNewProject
+  NewProjectPage,
+  createNewProject,
+  updateDetailsProject,
+  deleteProject
 };

@@ -7,9 +7,13 @@ block content
 
   
   table
+    th project id
     th project code
     th project part 
     each project in data
       tr
+        td=project.project_id
         td= project.code
         td= project.part
+        td 
+          a(href=project.project_id+'/detail/') update

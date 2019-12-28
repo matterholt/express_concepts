@@ -1,8 +1,32 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+  min-width: 100vh;
+
 }
 
 a {
   color: #00B7FF;
+}
+
+.newProject {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.newProject__form {
+  display: flex;
+  flex-flow: column;
+
+}
+
+
+
+.newProject_inputlabel {
+  margin-top: 25px;
+  margin-bottom: 15px;
+
 }
