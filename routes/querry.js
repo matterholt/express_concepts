@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db/config");
 
+// get the main project page
 const getProjects = (req, res) => {
   db.query("SELECT * FROM projects ORDER BY project_id ASC", (err, results) => {
     if (err) {
@@ -13,6 +14,26 @@ const getProjects = (req, res) => {
       data: projectlist
     });
   });
+};
+// get the project details, so select return one by id
+const updateDetailsProject = (req, res) => {
+  // fetch group members , have to async
+  const id = parseInt(req.params.id);
+  db.query(
+    "SELECT * from projects WHERE project_id=$1",
+    [id],
+    (err, results) => {
+      if (err) {
+        throw err;
+      }
+
+      //res.status(200).json(results.rows);
+      res.render("update_project", {
+        title: "Project detail",
+        data: results.rows[0]
+      });
+    }
+  );
 };
 const NewProjectPage = (req, res) => {
   res.render("newProject");
@@ -26,27 +47,8 @@ const createNewProject = (req, res) => {
       if (error) {
         throw error;
       }
-      res.status(201).send(`User added with ID: ${result.insertId}`);
-    }
-  );
-  res.redirect("/projects");
-};
-
-const updateDetailsProject = (req, res) => {
-  // fetch group members
-  const id = parseInt(req.params.id);
-  db.query(
-    "SELECT * from projects WHERE project_id=$1",
-    [id],
-    (err, results) => {
-      if (err) {
-        throw err;
-      }
-      //res.status(200).json(results.rows);
-      res.render("update_project", {
-        title: "Project detail",
-        data: results.rows[0]
-      });
+      //res.status(201).send(`User added with ID: ${result.insertId}`);
+      res.redirect("/projects");
     }
   );
 };
