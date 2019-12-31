@@ -6,7 +6,7 @@ const db = require("../db/config");
 const getProjects = (req, res) => {
   db.query("SELECT * FROM projects ORDER BY project_id ASC", (err, results) => {
     if (err) {
-      return next(err);
+      throw err;
     }
     const projectlist = results.rows;
     res.render("project", {

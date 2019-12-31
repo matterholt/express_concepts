@@ -28,9 +28,6 @@ module.exports = {
   query: (text, params, callback) => {
     const start = Date.now();
     return pool.query(text, params, (err, res) => {
-      // display how long it took to get the data from DB, careful if sensitive data
-      const duration = Date.now() - start;
-      console.log("executed query", { text, duration, rows: res.rowCount });
       callback(err, res);
     });
   },

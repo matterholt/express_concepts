@@ -8,12 +8,9 @@ const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 
 // import routes
-//const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
 const feaRequestRouter = require("./routes/feaRequest");
 const routes = require("./routes/index");
-
-const project = require("./routes/querry");
+//const testing = require("./routes/querry");
 
 require("dotenv").config();
 
@@ -36,18 +33,9 @@ app.use(
 );
 app.use(flash());
 
-//app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/api/user", routes.userAPI);
 app.use("/request", feaRequestRouter);
-app.use("/project", routes.projects);
-
-/////////////////////////////////////////////////////
-// connection to project database
-//app.get("/projects", project.getProjects);
-//app.get("/newproject", project.NewProjectPage);
-//app.post("/newproject", project.createNewProject);
-//app.get("/:id/detail", project.updateDetailsProject);
-//app.post("/:id/delete", project.deleteProject);
+//app.use("/tester", testing.getProjects);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

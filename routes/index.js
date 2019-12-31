@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const projects = require("./project");
+const userAPI = require("./api/user")
 
 /* GET home page. */
 router.get("/", function(req, res, next) {
@@ -9,5 +10,6 @@ router.get("/", function(req, res, next) {
 
 //module.exports = router;
 module.exports = {
-  projects
+  projects,
+  userAPI
 };
