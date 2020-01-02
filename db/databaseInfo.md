@@ -22,8 +22,13 @@ GETTING START BUILDING POSTGRESQL,
 5. create table, CREATE TABLE (name) -> build schema,
 
 A) create database via sql file
-psql ./folder/db/database.sql testingdb
-]
+psql -f ./folder/db/database.sql fea_tracker -U adminV2
+
+b) accessing datbase via ownder
+psql -d fea_tracker -U v2admin
+
+
+
 question:
 what data that would like to document
 
@@ -35,7 +40,4 @@ example of how to create the database structure see 'database_table.sql'
 
 ## perform a join
 
-for the project code we should show who is working on the project
-
-table
-link_user_project 
+see sql snippets

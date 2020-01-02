@@ -34,6 +34,7 @@ app.use(
 app.use(flash());
 
 app.use("/api/user", routes.userAPI);
+app.use("/api/projects", routes.projectsAPI);
 app.use("/request", feaRequestRouter);
 //app.use("/tester", testing.getProjects);
 

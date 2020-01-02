@@ -24,6 +24,20 @@ router.get("/:id", (req, res) => {
     res.status(200).json(results.rows[0]);
   });
 });
+router.get("/:id/project",(req,res)=>{
+  const {id} = req.params;
+  db.query(`SELECT dev_code,part_develop,email, username ,user_role
+  FROM link_user_project
+  INNER JOIN projects on projects.project_ID  = link_user_project.project_code
+  INNER JOIN users on users.user_ID = link_user_project.member
+  WHERE link_user_project.member = $1`,
+  [id], (error,results)=>{
+    if (error){
+      throw error;
+    }
+    res.status(200).json(results.rows)
+  })
+})
 
 // delete 
 router.delete("/:id/delete",(req,res)=>{
@@ -50,7 +64,6 @@ router.put("/:id/update",(req,res)=>{
     res.status(200).send(`User has ${userEmail} has been updated`)
   })
 })
-
 
 // create user
 router.post("/newuser", (req, res) => {

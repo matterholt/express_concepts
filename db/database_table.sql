@@ -6,13 +6,15 @@ CREATE TABLE users (
   email TEXT NOT NULL UNIQUE,
   user_pass TEXT NOT NULL,
   username TEXT NOT NULL,
+  firstname TEXT NOT NULL,
+  lastname TEXT NOT NULL,
   user_role TEXT);
 
-INSERT INTO users (email, user_pass,username user_role) 
-VALUES ('pOne@example.com', '123','player1', 'D1'), 
-       ('pTwo@example.com','123','player2','D1'),
-       ('pThree@example.com','abc','player3','V2'),
-       ('pFour@example.com','abc','player4','V2');
+INSERT INTO users (email, user_pass,username,firstname,lastname, user_role) 
+VALUES ('pOne@example.com', '123','player1','player','one', 'D1'), 
+       ('pTwo@example.com','123','player2','player','two','D1'),
+       ('pThree@example.com','abc','player3','player','there','V2'),
+       ('pFour@example.com','abc','player4','player','four','V2');
 
 CREATE TABLE projects (
     project_ID SERIAL PRIMARY KEY,
@@ -26,8 +28,8 @@ VALUES('XYZ', 'FRSUB' ),('TBH', 'RRSUB' ),('XYZ', 'ARM' );
 
 CREATE TABLE link_user_project (
     link_ID SERIAL PRIMARY KEY,
-    member SERIAL REFERENCES users(user_ID),
-    project_code SERIAL REFERENCES projects(project_ID)
+    member SERIAL REFERENCES users(user_ID) ON DELETE CASCADE ,
+    project_code SERIAL REFERENCES projects(project_ID) ON DELETE CASCADE
 );
 /*
 project 1 == XYZ frsub
@@ -58,8 +60,8 @@ CREATE TABLE feaRequest (
     changelog  TEXT,
     submitDateTime  TIMESTAMP DEFAULT CURRENT_TIMESTAMP(2),
     perform_analysis TEXT,
-    project_code SERIAL REFERENCES projects(project_ID),
-    requester SERIAL REFERENCES users(user_ID)
+    project_code SERIAL REFERENCES projects(project_ID) ON DELETE CASCADE,
+    requester SERIAL REFERENCES users(user_ID) ON DELETE CASCADE
 );
 
 INSERT INTO feaRequest 
@@ -77,7 +79,7 @@ CREATE TABLE results (
     published BOOLEAN DEFAULT FALSE,
     publish_dateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP(2),
     checked BOOLEAN DEFAULT FALSE,
-    request_ID SERIAL REFERENCES feaRequest(request_ID)
+    request_ID SERIAL REFERENCES feaRequest(request_ID) ON DELETE CASCADE
 );
 
 INSERT INTO results (analysis_perform, request_ID)
