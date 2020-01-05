@@ -1,7 +1,9 @@
 var express = require("express");
 var router = express.Router();
 const projectsAPI = require("./api/projects");
-const userAPI = require("./api/user")
+const userAPI = require("./api/user");
+const feaRequestAPI = require("./api/fearequest");
+const feaResultsAPI = require("./api/results");
 
 /* GET home page. */
 router.get("/", function(req, res, next) {
@@ -11,5 +13,7 @@ router.get("/", function(req, res, next) {
 //module.exports = router;
 module.exports = {
   projectsAPI,
-  userAPI
+  userAPI,
+  feaRequestAPI,
+  feaResultsAPI
 };

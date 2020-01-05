@@ -8,9 +8,7 @@ const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 
 // import routes
-const feaRequestRouter = require("./routes/feaRequest");
 const routes = require("./routes/index");
-//const testing = require("./routes/querry");
 
 require("dotenv").config();
 
@@ -35,8 +33,9 @@ app.use(flash());
 
 app.use("/api/user", routes.userAPI);
 app.use("/api/projects", routes.projectsAPI);
-app.use("/request", feaRequestRouter);
-//app.use("/tester", testing.getProjects);
+app.use("/api/feaRequest", routes.feaRequestAPI);
+// to create the results it might be better in feaRequest??
+app.use("/api/feaResults", routes.feaResultsAPI);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -15,7 +15,6 @@ router.get("/", (req, res) => {
   });
 });
 
-
 // @route GET /projects/:id
 // @desc get id details of id  projects
 // @access project lead
@@ -110,6 +109,8 @@ router.get("/:id/details",(req,res)=>{
       res.status(200).json(results.rows)
     })
   })
+
+// build the project assignments,
 
 
 module.exports = router;
