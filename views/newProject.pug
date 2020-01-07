@@ -1,0 +1,17 @@
+extends layout
+
+block content
+ div.newProject
+    h1 create new project
+    p manager permission 
+    
+    form.newProject__form( method="POST")
+      div.newProject_inputlabel
+        label.newProject_inputDescript(for="partCode") project code:
+        input(type="text" name="partCode" id="partCode")
+      div.newProject_inputlabel
+        label.newProject_inputDescript(for="partDev") part developing:
+        input(type="text" name="partDev" id="partDev")
+      div.newProject__button
+        <button>Create</button>
+        <button>Cancel</button>
