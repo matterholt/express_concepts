@@ -24,6 +24,7 @@ router.get("/:id", (req, res) => {
     res.status(200).json(results.rows[0]);
   });
 });
+
 router.get("/:id/project", (req, res) => {
   const { id } = req.params;
   db.query(

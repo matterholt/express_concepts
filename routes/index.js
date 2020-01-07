@@ -4,6 +4,7 @@ const projectsAPI = require("./api/projects");
 const userAPI = require("./api/user");
 const feaRequestAPI = require("./api/fearequest");
 const feaResultsAPI = require("./api/results");
+const projectGroupAPI = require("./api/projectGroup");
 
 /* GET home page. */
 router.get("/", function(req, res, next) {
@@ -15,5 +16,6 @@ module.exports = {
   projectsAPI,
   userAPI,
   feaRequestAPI,
-  feaResultsAPI
+  feaResultsAPI,
+  projectGroupAPI
 };

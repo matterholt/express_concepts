@@ -36,6 +36,7 @@ app.use("/api/projects", routes.projectsAPI);
 app.use("/api/feaRequest", routes.feaRequestAPI);
 // to create the results it might be better in feaRequest??
 app.use("/api/feaResults", routes.feaResultsAPI);
+app.use("/api/projectGroup", routes.projectGroupAPI);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
