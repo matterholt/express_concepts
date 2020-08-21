@@ -19,17 +19,29 @@ const oidc = new ExpressOIDC({
     issuer: `${process.env.OKTA_ORG_URL}/oauth2/default`,
     client_id: process.env.OKTA_CLIENT_ID,
     client_secret: process.env.OKTA_CLIENT_SECRET,
-    redirect_uri: process.env.REDIRECT_URL,
+    redirect_uri: `${process.env.REDIRECT_URL}/authorization-code/callback`,
     scope: 'openid profile',
-    routes: {
-        callback: {
-            path: '/authorization-code/callback',
-            defaultRedirect: '/admin'
-        }
-    }
 })
+
+
+
+
+// ExpressOIDC will attach handlers for the /login and /authorization-code/callback routes
+app.use(oidc.router);
+app.use(cors());
+app.use(bodyParser.json())
+
+
+
 app.get('/', (req, res) => {
     res.send('<h1>WELCOM@!!</h1>');
 });
+
+app.get('/home', (req, res) => {
+    res.send('<h1>Welcome!!</div><a href="/login">Login</a>');
+});
+app.get('/admin', (req, res) => {
+    res.send('ADMIN PAGE')
+})
 
 app.listen(port, () => console.log(`my app listening on port ${port}!`))
