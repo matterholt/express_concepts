@@ -64,7 +64,7 @@ async function requestBulkAdd() {
 }
 
 async function userBulkAdd() {
-  await FeaRequestModel.sync({
+  await User.sync({
     force: true,
   });
   console.log("The table for the User model was just (re)created!");
