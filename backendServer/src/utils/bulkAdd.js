@@ -1,5 +1,5 @@
 import { Sequelize, Model, DataTypes } from "sequelize";
-import { sync } from "rimraf";
+
 // import { FeaRequestModel } from "../models/db_models";
 
 const db_connection = new Sequelize({
@@ -27,45 +27,18 @@ const User = db_connection.define("user", {
 });
 
 async function AddBulk() {
-  db_connection
-    .sync({
-      force: true,
-    })
-    .then(() => {
-      console.log(`Database & tables created!`);
-      FeaRequestModel.bulkCreate([
-        {
-          modelName: "V00R00",
-          modelDescription: "make things better",
-          baseModelName: "OEM",
-          requestStatus: "completed",
-          analysisPerform: "stiffness",
-        },
-        {
-          modelName: "V01R00",
-          modelDescription: "make things STRONGER",
-          baseModelName: "V00R00",
-          analysisPerform: "stiffness",
-        },
-        {
-          modelName: "V01R01",
-          modelDescription: "make things Lighter",
-          baseModelName: "V01R00",
-          analysisPerform: "stiffness",
-        },
-      ])
-        .then(function () {
-          return FeaRequestModel.findAll();
-        })
-        .then(function (requests) {
-          console.log(requests);
-        });
-    });
+  await requestBulkAdd();
+  await userBulkAdd();
 }
 AddBulk();
 
 async function requestBulkAdd() {
-  await FeaRequest.bulkCreate([
+  await FeaRequestModel.sync({
+    force: true,
+  });
+  console.log("The table for the fea request model was just (re)created!");
+
+  await FeaRequestModel.bulkCreate([
     {
       modelName: "V00R00",
       modelDescription: "make things better",
@@ -86,11 +59,16 @@ async function requestBulkAdd() {
       analysisPerform: "stiffness",
     },
   ]);
-  const allRequest = await FeaRequest.findAll();
+  const allRequest = await FeaRequestModel.findAll();
   console.log(allRequest);
 }
 
 async function userBulkAdd() {
+  await FeaRequestModel.sync({
+    force: true,
+  });
+  console.log("The table for the User model was just (re)created!");
+
   await User.bulkCreate([
     {
       name: "Felipe",
