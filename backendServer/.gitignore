@@ -1,5 +1,7 @@
 .node_modules
 .env
+.dist-server
+dist-server
 # Created by https://www.gitignore.io/api/node
 # Edit at https://www.gitignore.io/?templates=node
 
