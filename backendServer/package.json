@@ -6,13 +6,14 @@
   "scripts": {
     "start": "nodemon --exec babel-node ./src/index.js",
     "server": "node ./dist-server/index.js",
-    "transpile": "babel src/index.js  --out-dir dist-server",
+    "transpile": "babel src  --out-dir dist-server",
     "dev": "NODE_ENV=development npm-run-all build server",
     "prod": "NODE_ENV=production npm-run-all build server",
     "clean": "rimraf dist-server",
     "build": "npm-run-all clean transpile",
     "test": "jest",
-    "watch:dev": "nodemon"
+    "watch:dev": "nodemon",
+    "buildDB": "babel-node src/utils/bulkAdd.js "
   },
   "author": "MAtterholt",
   "license": "ISC",

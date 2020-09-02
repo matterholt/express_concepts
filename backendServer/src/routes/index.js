@@ -1,5 +1,5 @@
-import request from "./request";
+import feaRequest from "./feaRequest";
 
 export default {
-  request,
+  feaRequest,
 };
