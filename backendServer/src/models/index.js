@@ -1,13 +1,21 @@
-import { Sequelize } from "sequelize";
+import Sequelize from "sequelize";
 
-import feaRequest from "./feaRequest";
-import user from "./user";
-
-const db_connection = new Sequelize({
+const sequelize = new Sequelize({
+  // future place in .env
   dialect: "sqlite",
   storage: "db/main.sqlite",
 });
 
-feaRequest();
+const models = {
+  User: require("./user"),
+  feaRequest: require("./feaRequest"),
+};
 
-export default db_connection;
+Object.keys(models).forEach((key) => {
+  if ("associate" in models[key]) {
+    models[key].associate(models);
+  }
+});
+export { sequelize };
+
+export default models;

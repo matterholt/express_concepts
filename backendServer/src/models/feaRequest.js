@@ -25,6 +25,7 @@ const feaRequest = (sequelize, DataTypes) => {
   FeaRequestModel.associate = (models) => {
     FeaRequestModel.belongsTo(models.user, {
       foreignKey: {
+        name: "creatorId",
         allowNull: false,
       },
     });
