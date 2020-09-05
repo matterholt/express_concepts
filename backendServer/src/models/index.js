@@ -1,4 +1,7 @@
+import { applyAssociates } from "./associate";
+import { requestModel } from "./feaRequest";
 const { Sequelize } = require("sequelize");
+
 const sequelize = new Sequelize({
   dialect: "sqlite",
   storage: "sqlite-example-database/example-db.sqlite",
@@ -6,11 +9,14 @@ const sequelize = new Sequelize({
   benchmark: true,
 });
 
-const modelDefiners = [require("./user")];
+const modelDefiners = [require("./user"), requestModel];
 
 for (const modelDefiner of modelDefiners) {
   modelDefiner(sequelize);
 }
+console.log(sequelize.models.user);
+
+// applyAssociates(sequelize);
 
 module.exports = sequelize;
 

@@ -1,44 +1,30 @@
-import User from "../models/user";
-import { Sequelize } from "sequelize";
+import sequelize from "../models";
 
-const db_connection = new Sequelize({
-  dialect: "sqlite",
-  storage: "db/main.sqlite",
-});
+async function reset(sequelize) {
+  console.log(sequelize);
+  const { user, request } = sequelize.models;
 
-async function userBulkAdd() {
-  await User.sync({
-    force: true,
-  });
-  console.log("The table for the User model was just (re)created!");
+  console.log(
+    "Will rewrite the SQLite example database, adding some dummy data."
+  );
+  await sequelize.sync({ force: true });
 
-  await User.bulkCreate([
+  await user.bulkCreate([
     {
-      name: "Felipe",
-      email: "Felipe@example.com",
-      simplePass: "felipe",
-      role: "designer",
+      username: "Felipe",
     },
     {
-      name: "James",
-      email: "James@example.com",
-      simplePass: "james",
-      role: "v2 engineer",
+      username: "James",
     },
     {
-      name: "Abhi",
-      email: "Abhi@example.com",
-      simplePass: "abhi",
-      role: "manager",
+      username: "Abhi",
     },
     {
-      name: "Matt",
-      email: "Matt@example.com",
-      simplePass: "matt",
-      role: "admin",
+      username: "Matt",
     },
   ]);
-  const allUsers = await User.findAll();
+  const allUsers = await user.findAll();
   console.log(allUsers);
 }
-userBulkAdd();
+
+reset(sequelize);
