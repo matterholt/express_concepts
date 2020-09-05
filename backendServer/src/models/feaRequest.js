@@ -10,26 +10,26 @@ const feaRequest = (sequelize, DataTypes) => {
         notEmpty: true,
       },
     },
-    modelDescription: DataTypes.STRING,
-    baseModelName: DataTypes.TEXT,
-    requestStatus: {
-      type: DataTypes.TEXT,
-      defaultValue: "pending",
-    },
-    analysisPerform: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
+    // modelDescription: DataTypes.STRING,
+    // baseModelName: DataTypes.TEXT,
+    // requestStatus: {
+    //   type: DataTypes.TEXT,
+    //   defaultValue: "pending",
+    // },
+    // analysisPerform: {
+    //   type: DataTypes.TEXT,
+    //   allowNull: false,
+    // },
   });
 
-  FeaRequestModel.associate = (models) => {
-    FeaRequestModel.belongsTo(models.user, {
-      foreignKey: {
-        name: "creatorId",
-        allowNull: false,
-      },
-    });
-  };
+  // FeaRequestModel.associate = (models) => {
+  //   FeaRequestModel.belongsTo(models.user, {
+  //     foreignKey: {
+  //       name: "creatorId",
+  //       allowNull: false,
+  //     },
+  //   });
+  // };
 
   return FeaRequestModel;
 };

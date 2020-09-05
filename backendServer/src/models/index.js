@@ -1,21 +1,35 @@
-import Sequelize from "sequelize";
-
+const { Sequelize } = require("sequelize");
 const sequelize = new Sequelize({
-  // future place in .env
   dialect: "sqlite",
-  storage: "db/main.sqlite",
+  storage: "sqlite-example-database/example-db.sqlite",
+  logQueryParameters: true,
+  benchmark: true,
 });
 
-const models = {
-  User: require("./user"),
-  feaRequest: require("./feaRequest"),
-};
+const modelDefiners = [require("./user")];
 
-Object.keys(models).forEach((key) => {
-  if ("associate" in models[key]) {
-    models[key].associate(models);
-  }
-});
-export { sequelize };
+for (const modelDefiner of modelDefiners) {
+  modelDefiner(sequelize);
+}
 
-export default models;
+module.exports = sequelize;
+
+//////////////////////////////////////////////
+// const modelDefiner = [
+//   require("./user"),
+//   FeaRequest: require("./feaRequest"),
+// ];
+
+// for (const modelDefiner of modelDefiners) {
+//   modelDefiner(sequelize);
+// }
+
+// Object.keys(models).forEach((key) => {
+//   if ("associate" in models[key]) {
+//     models[key].associate(models);
+//   }
+// });
+// export { sequelize };
+
+// export default models;
+// module.exports = sequelize;
