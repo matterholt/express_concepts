@@ -25,6 +25,23 @@ async function reset(sequelize) {
   ]);
   const allUsers = await user.findAll();
   console.log(allUsers);
+
+  await request.bulkCreate([
+    {
+      modelName: "V00R00",
+    },
+    {
+      modelName: "V01R00",
+    },
+    {
+      modelName: "V01R01",
+    },
+    {
+      modelName: "V02R00",
+    },
+  ]);
+  const allRequest = await request.findAll();
+  console.log(allRequest);
 }
 
 reset(sequelize);
