@@ -13,7 +13,7 @@
     "build": "npm-run-all clean transpile",
     "test": "jest",
     "watch:dev": "nodemon",
-    "buildDB": "babel-node src/utils/testModel.js"
+    "buildDB": "babel-node src/utils/MocModel.js"
   },
   "author": "MAtterholt",
   "license": "ISC",

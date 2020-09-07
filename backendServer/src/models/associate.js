@@ -4,11 +4,6 @@ function applyAssociates(sequelize) {
     onDelete: "cascade",
   });
 
-  request.belongsTo(user, {
-    foreignKey: {
-      name: "creatorId",
-      allowNull: false,
-    },
-  });
+  request.belongsTo(user);
 }
 export { applyAssociates };
