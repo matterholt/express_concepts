@@ -1,13 +1,6 @@
 import { applyAssociates } from "./associate";
 import { requestModel } from "./feaRequest";
-const { Sequelize } = require("sequelize");
-
-const sequelize = new Sequelize({
-  dialect: "sqlite",
-  storage: "sqlite-example-database/example3.sqlite",
-  logQueryParameters: true,
-  benchmark: true,
-});
+import { sequelize } from "../config/database";
 
 const modelDefiners = [require("./user"), requestModel];
 
