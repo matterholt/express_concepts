@@ -19,15 +19,38 @@ app.get("/", (req, res) => {
 
 app.use(express.static("public"));
 
-app.use("/fea-request", routes.feaRequest.getAll);
-
 assertDatabaseConnectionOk(sequelize);
 
 for (const [routeName, routeController] of Object.entries(routes)) {
+  console.log(routeController);
   if (routeController.getAll) {
     app.get(
       `/api/${routeName}`,
       makeHandlerAwareOfAsyncErrors(routeController.getAll)
+    );
+  }
+  if (routeController.getById) {
+    app.get(
+      `/api/${routeName}/:id`,
+      makeHandlerAwareOfAsyncErrors(routeController.getById)
+    );
+  }
+  if (routeController.create) {
+    app.get(
+      `/api/${routeName}`,
+      makeHandlerAwareOfAsyncErrors(routeController.create)
+    );
+  }
+  if (routeController.update) {
+    app.get(
+      `/api/${routeName}/:id`,
+      makeHandlerAwareOfAsyncErrors(routeController.update)
+    );
+  }
+  if (routeController.remove) {
+    app.get(
+      `/api/${routeName}/:id`,
+      makeHandlerAwareOfAsyncErrors(routeController.remove)
     );
   }
 }

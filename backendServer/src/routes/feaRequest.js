@@ -8,11 +8,11 @@ async function getAll(req, res) {
 }
 async function getById(req, res) {
   const id = getIdParam(req);
-  const user = await models.request.findByPk(id);
-  if (user) {
-    res.status(200).json(user);
+  const requestFea = await models.request.findByPk(id);
+  if (requestFea) {
+    res.status(200).json(requestFea);
   } else {
-    res.status(404).send("404 -  User Not Found!");
+    res.status(404).send("404 -  requestFea Not Found!");
   }
 }
 async function create(req, res) {
