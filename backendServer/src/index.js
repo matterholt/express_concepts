@@ -2,11 +2,11 @@ import express from "express";
 import cors from "cors";
 import "dotenv/config";
 import { assertDatabaseConnectionOk } from "./utils/db_connection_check";
+import { makeHandlerAwareOfAsyncErrors } from "./utils/helper";
 const sequelize = require("./models");
 
 import routes from "./routes";
 
-console.log(routes);
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
@@ -23,6 +23,14 @@ app.use("/fea-request", routes.feaRequest.getAll);
 
 assertDatabaseConnectionOk(sequelize);
 
+for (const [routeName, routeController] of Object.entries(routes)) {
+  if (routeController.getAll) {
+    app.get(
+      `/api/${routeName}`,
+      makeHandlerAwareOfAsyncErrors(routeController.getAll)
+    );
+  }
+}
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
